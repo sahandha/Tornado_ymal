@@ -1,0 +1,32 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: tornado-controller
+  namespace: tornado
+spec:
+  replicas: 1
+  selector:
+    component: tornado
+  template:
+    metadata:
+      labels:
+        component: tornado
+    spec:
+      containers:
+        - name: tornado
+          image: sahandha/tornado
+          imagePullPolicy: Always
+          command: ["python","/external/server/server.py"]
+          ports:
+            - containerPort: 8888 
+          volumeMounts:
+            - mountPath: /external/shared
+              name: nfsvol
+          resources:
+            requests:
+              cpu: 100m
+      volumes:
+        - name: nfsvol
+          persistentVolumeClaim:
+            claimName: tornado-nfs
+
