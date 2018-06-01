@@ -11,4 +11,3 @@ spec:
   selector:
     component: tornado
   type: NodePort
-

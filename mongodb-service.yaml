@@ -1,8 +1,8 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: spark-master
+  name: mongodb
   namespace: tornado
 spec:
   type: ExternalName
-  externalName: spark-master.spark.svc.cluster.local
+  externalName: mongodb.mongodb.svc.cluster.local

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tornado-nfs
+  name: mongo-nfs
   namespace: tornado
 spec:
   capacity:
@@ -16,7 +16,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: tornado-nfs
+  name: mongodb-nfs
   namespace: tornado
 spec:
   accessModes:

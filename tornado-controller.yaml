@@ -15,9 +15,11 @@ spec:
       containers:
         - name: tornado
           image: sahandha/tornado
-          imagePullPolicy: Always
-          command: ["python","/external/server/server.py"]
+          imagePullPolicy: Never
+          command: ["/bin/sh"]
+          args: ["-c","cp -r /external/server /external/shared; python /external/shared/server/server.py"]
           ports:
+            - containerPort: 27017
             - containerPort: 8888 
           volumeMounts:
             - mountPath: /external/shared
@@ -25,8 +27,24 @@ spec:
           resources:
             requests:
               cpu: 100m
+        - name: mongodb
+          image: mongo
+          imagePullPolicy: Never
+          command: ["mongod"]
+          ports:
+            - containerPort: 27017
+            - containerPort: 8888 
+          #volumeMounts:
+          #  - mountPath: /data/db
+          #    name: mongodb-nfsvol
+          resources:
+            requests:
+              cpu: 100m
       volumes:
         - name: nfsvol
           persistentVolumeClaim:
             claimName: tornado-nfs
+        #- name: mongodb-nfsvol
+        #  persistentVolumeClaim:
+        #    claimName: mongodb-nfs
 
